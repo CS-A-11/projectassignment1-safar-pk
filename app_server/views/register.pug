@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  img(src onerror="setClickedID('ticketsID')")
+  h1(style="width: 100%; text-align: center;") Registration
+  if !status
+    div(class="registerform")
+      form(action="/api/users" method="post" target="responseFrame")
+        .col-xs-12
+          input(type="text" class="txtfld" placeholder="Enter Username" name="uname" required)
+          br
+          input(type="text" class="txtfld" placeholder="Enter Full Name" name="name" required)
+          br
+          select(name="gender" class="txtfld")
+            option(value="male") Male
+            option(value="female") Female
+          br
+          input(type="number" class="txtfld" placeholder="Enter Age" name="age" required)
+          br
+          input(type="text" class="txtfld" placeholder="Enter Address" name="address" required)
+          br
+          input(type="password" class="txtfld" placeholder="Enter Password" name="pass" required)
+          br
+          input(type="password" class="txtfld" placeholder="Confirm Password" name="confirm" required)
+          br
+          button(type="submit" class="loginbutton") Register!
+      .row
+        .col-xs-12
+          iframe(name="responseFrame" style="margin-left: 10%; width: 80%; height: 2%; background-color: white;")
+  else
+    p You need to be signed out to create a new account!  

@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  #mySidenav.sidenav
+    a.closebtn(href='javascript:void(0)', onclick='closeNav()') ×
+    a(href='/api/users') Users
+    a(href='/api/trips/getall') Trips
+    a(href='' data-toggle='modal', data-target='#addTrip') Add Trip
+    a(href='/api/company/show') Show Companies
+    a(href='' data-toggle='modal', data-target='#addComp') Add Company
+  #main
+    span(style='font-size:30px;cursor:pointer; color: white;', onclick='openNav()') ☰ open
+    .adminpanel(style="margin-left: 0; margin-right: 0;")
+      if act == "showUsers"
+          .usersTable(ng-controller="aCtrl")
+            .col-sm-12.list-group(id="aid")
+              .list-group-item(style="color: black; width: 100%;" ng-repeat="user in data.ausers")
+                p(id="edL") {{user.Username}} || {{user.Name}} || &nbsp;
+                //a(id="ed" href="/api/users/"+user._id) edit
+                button(ng-click="setEdit(user)") edit
+                br
+      else if act == "showATrips"
+        if tripsList
+          .col-sm-12.list-group
+            each trip in tripsList
+              .list-group-item(style="color: black; width: 100%;")
+                p(id="ed") Name: #{trip.TripName} || Start Date: #{trip.StartDate} || Company: #{trip.TripBy.CompanyName} || &nbsp;
+                a(id="edL" href="/api/trips/delete/"+trip._id) delete
+                br
+      else if act == "showCompanies"
+        if compList
+          .col-sm-12.list-group
+            each c in compList
+              .list-group-item(style="color: black; width: 100%;")
+                p(id="ed") Name: #{c.CompanyName} || Phone: #{c.Phone} || Office Location: #{c.OfficeLoc} || &nbsp;
+                a(id="edL" href="/api/company/delete/"+c._id) delete
+                br
+        
+        

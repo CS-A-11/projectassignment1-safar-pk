@@ -1,0 +1,264 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-image: url("/images/BG.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.nameSec {
+  padding: 1%;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  font-family: monospace;
+}
+
+
+
+hr { 
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+} 
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.mainTitle, .topnav {
+  display: inline;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  font-family: monospace;
+  padding: 23px 30px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color:  rgba(255, 255, 255, 0.5); color: #000 }
+
+ul.topnav li a.active {background-color: rgb(32, 148, 70);}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+  ul.topnav li.right, 
+  ul.topnav li {float: none;}
+}
+
+.txtfld {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  margin: 5px;
+  color: black;
+  font-family: 'Trebuchet MS';
+  font-weight: bold;
+}
+
+.txtfld2 {
+  padding: 1%;
+  box-sizing: border-box;
+  border: none;
+  margin: 1%;
+  width: 100%;
+  color: black;
+  font-family: 'Trebuchet MS';
+  font-weight: bold;
+}
+
+.txtfld3 {
+  padding: 4px;
+  box-sizing: border-box;
+  border: none;
+  margin: 1%;
+  width: 90%;
+  color: black;
+  font-family: 'Trebuchet MS';
+  font-weight: bold;
+}
+
+
+.loginform {
+  background-color: rgba(255, 255, 255, 0.50);
+  text-align: center;
+  padding: 1%;
+}
+
+.registerform {
+  background-color: rgba(255, 255, 255, 0.50);
+  text-align: center;
+  padding: 1%;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.loginbutton {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    width: 20%;
+    padding: 1%;
+    text-decoration: none;
+    margin: 1%;
+    cursor: pointer;
+}
+
+.homeDiv {
+  background-color: rgba(0, 0, 0, 0.50);
+  width: 100%;
+  height: 100%;
+  font-style: italic;
+  color: white;
+  padding: 3%;
+  margin-top: 15px;
+}
+
+.homeDiv p {
+  font-size: 20px;
+  font-family: 'Trebuchet MS';
+  font-weight: bold;
+  
+}
+
+.loginline {
+  text-align: center;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.50);
+  float: right;
+}
+
+h1, .loginline, .loggedin {
+  display: inline-block;
+}
+
+.loggedin {
+  color: black;
+  font-family: 'Trebuchet MS';
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.50);
+  padding-left: 5%;
+  padding-right: 5%;
+  float: right;
+  text-align: center;
+}
+
+
+
+
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+table tr:hover {
+  color: #00B7FF;
+}
+
+.usersTable {
+  height: 500px;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+#ed, #edL {
+  display: inline-block;
+}
+
+.navbar {
+  background-color: white; 
+  width: 100%; 
+  color: black;
+  height: 500px;
+}
+
+.adminpanel {
+  background-color: rgba(0, 0, 0, 0.50);
+  color: white;
+  font-family: 'Trebuchet MS';
+  padding: 25px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 250px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  z-index: 1;
+  left: 0;
+  position: fixed;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+
+.autocomplete-suggestions { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-no-suggestion { padding: 2px 5px;}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: bold; color: #000; }
+.autocomplete-group { padding: 2px 5px; font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }

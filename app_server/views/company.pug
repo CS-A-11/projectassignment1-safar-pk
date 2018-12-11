@@ -1,0 +1,15 @@
+extends layout
+
+block content
+            
+    if comp
+        h1= comp.CompanyName
+        .list-group
+            .list-group-item
+                p Office Location: #{comp.OfficeLoc}
+            .list-group-item
+                p Contact Number: #{comp.Phone}
+        h1 Reviews
+        .list-group
+            .list-group-item
+                p XD

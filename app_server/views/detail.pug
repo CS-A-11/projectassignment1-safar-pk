@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container(style="background-color: white; padding: 10px; font-family: 'Trebuchet MS'")
+    h1= trip.TripName
+    .list-group
+      .list-group-item
+        p Pickup From: #{trip.Pickup}
+      .list-group-item
+        p Destination: #{trip.Destination}
+      .list-group-item
+        p Price / person: $#{trip.Price}
+      .list-group-item
+        p Total Seats: #{trip.TotalSeats}
+      .list-group-item
+        p Remaining: #{trip.Remaining}
+      .list-group-item
+        p Date of Departure: #{trip.StartDate}
+      .list-group-item
+        p Date of Arrival: #{trip.EndDate}
+
+    h2 Trip Organized by: #{trip.TripBy.CompanyName}
+    .list-group
+      .list-group-item
+        p Office Location: #{trip.TripBy.OfficeLoc}
+        a(href="/api/company/"+trip.TripBy._id) details

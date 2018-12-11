@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .container(ng-controller="tripCtrl")
+    .row
+      input.form-control(id="autocomplete" class="txtfld2" placeholder="search..." ng-model="textFilter")
+      .col-sm-4.list-group(ng-repeat="trip in data.trips | filter: textFilter")
+        .list-group-item.homeDiv(style="background-color: rgba(0,0,0,0.50); color: white;")
+          h2 {{trip.TripName}}
+          p(style="font-size: 11px;line-height: 0; margin-top: 5px;") Price / person: ${{trip.Price}}
+          p(style="font-size: 11px; line-height: 0;") Seats: {{trip.Remaining}}/{{trip.TotalSeats}}
+          a.btn.btn-lg.btn-primary(href="/api/trips/{{trip._id}}") Details

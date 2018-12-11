@@ -1,0 +1,175 @@
+doctype html
+html(ng-app='safarApp')
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    
+    link(rel="stylesheet" href="/stylesheets/w3.css")
+    script(src="/angular/angular.min.js")
+    script(src="/angular/safarApp.js")
+    script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q', crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    script(type='text/javascript', src='/javascripts/jquery.autocomplete.js')
+
+
+    
+    script(src="/javascripts/script.js")
+
+
+  body(ng-controller="parentCtrl")
+    .row
+      .col-sm-12
+        h1(id="mainTitle") SAFAR.PK
+        if !status
+          ul(class="topnav")
+            li(class="right" )
+              a(data-toggle='modal', data-target='#registerModal') Register
+            li(class="right")
+              a(data-toggle='modal', data-target='#loginModal') Login
+        else
+          .loggedin
+            p(style=" color: green;") Login Successful
+            p(style=" color: #FF6347;") #{user.Name}
+            a(href="/api/logout") Logout
+    
+    #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#loginModal.modal-title Login Page
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            if lgnMsg
+              p(style="color: red; margin: 0;") #{lgnMsg}
+            form(action="/api/login", method="post" id="loginform")
+              input(type="text" class="txtfld" placeholder="Enter Username" id="uname" name="uname" required)
+              br
+              input(type="password" class="txtfld"  placeholder="Enter Password" id="pass" name="pass" required) 
+              br
+              button.btn.btn-primary(type="submit") Login
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
+    #registerModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='registerModal', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#registerModal.modal-title Register Page
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            form(id="regform" action="/api/users" method="post")
+              .col-xs-12
+                input(type="text" class="txtfld" placeholder="Enter Username" id="unamereg" name="unamereg" required)
+                br
+                input(type="text" class="txtfld" placeholder="Enter Full Name" id="name" name="name" required)
+                br
+                select(name="gender" class="txtfld")
+                  option(value="male") Male
+                  option(value="female") Female
+                br
+                input(type="number" class="txtfld" placeholder="Enter Age" id="age" name="age" required)
+                br
+                input(type="text" class="txtfld" placeholder="Enter Address" id="address" name="address" required)
+                br
+                input(type="password" class="txtfld" placeholder="Enter Password" id="passreg" name="passreg" required)
+                br
+                input(type="password" class="txtfld" placeholder="Confirm Password" id="confirm" name="confirm" required)
+                br
+                button.btn.btn-primary(type="submit") Register!
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+    #editUser.modal.fade(tabindex='-1', role='dialog', aria-labelledby='editUser', aria-hidden='true')
+      .modal-dialog(role='document' ng-controller="aCtrl")
+        .modal-content
+          .modal-header
+            h5#editUser.modal-title Edit User
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            p#un
+            select(class="txtfld2" id="adminaction" name="action" onchange="changeAdminAction()")
+              option(value="remove") Delete User
+              option(value="editname") Edit Name
+              option(value="editpass") Edit Password
+              option(value="editaddr") Edit Address
+            br
+            input(class="txtfld2" type="text" id="newvaluebox" name="newval" style="display: none;" placeholder="New Value...")
+            br
+            button(ng-click="atteptEU()" class="txtfld2" style="background-color: #FF6347") Action
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModal', aria-hidden='true')
+      .modal-dialog(role='document', ng-controller="aCtrl")
+        .modal-content
+          .modal-header
+            h5#myModal.modal-title Message from SAFAR.PK
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            p#error.Name
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
+    #addComp.modal.fade(tabindex='-1', role='dialog', aria-labelledby='addComp', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#addComp.modal-title Add Company
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            input(class="txtfld2" type="text" id="cname" name="cname" placeholder="Company Name" required)
+            br
+            input(class="txtfld2" type="text" id="cphone" name="cphone" placeholder="Phone Number" required)
+            br
+            input(class="txtfld2" type="text" id="cloc" name="cloc" placeholder="Office Location" required)
+            br
+            button(class="txtfld2" style="background-color: #FF6347" onclick='addcomp()') Add Company 
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+    
+    #addTrip.modal.fade(tabindex='-1', role='dialog', aria-labelledby='addTrip', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#addTrip.modal-title Add Trip
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            input(class="txtfld3" type="text" id="tname" name="tname" placeholder="Trip Name" required)
+            br
+            input(class="txtfld3" type="text" id="tpickup" name="tpickup" placeholder="Pickup" required)
+            br
+            input(class="txtfld3" type="text" id="tdest" name="tdest" placeholder="Destination" required)
+            br
+            input(class="txtfld3" type="text" id="tprice" name="tprice" placeholder="Price" required)
+            br
+            input(class="txtfld3" type="text" id="tseats" name="tseats" placeholder="Total Seats" required)
+            br
+            label Start Date
+            br
+            input(class="txtfld3" type="date" id="tstart" name="tstart" placeholder="Start Date" required)
+            br
+            label End Date
+            br
+            input(class="txtfld3" type="date" id="tend" name="tend" placeholder="End Date" required)
+            br
+            select(id="tcomp" class="txtfld3")
+              option Choose Company
+              if compList
+                each c in compList
+                  option(value=c)= c.CompanyName  
+            button(class="txtfld3" style="background-color: #FF6347" onclick="addtrip()") Add Trip
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+    
+    hr
+    block content
+    hr

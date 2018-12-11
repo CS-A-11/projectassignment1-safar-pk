@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  img(src onerror="setClickedID('travelID')")
+  h1(style="width: 100%; text-align: center;") Travel
+  div(class="nameSec")
+    p Welcome to Travel Page
+    if tripsList
+      each trip in tripsList
+        p= trip.TripName

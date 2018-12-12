@@ -24,7 +24,7 @@ html(ng-app='safarApp')
     .row
       .col-sm-12
         h1(id="mainTitle") SAFAR.PK
-        if !status
+        if !user
           ul(class="topnav")
             li(class="right" )
               a(data-toggle='modal', data-target='#registerModal') Register
@@ -35,6 +35,15 @@ html(ng-app='safarApp')
             p(style=" color: green;") Login Successful
             p(style=" color: #FF6347;") #{user.Name}
             a(href="/api/logout") Logout
+
+    .row
+      .col-sm-12
+        ul(class="topnav")
+          li
+            a(href="/") Home
+          if user
+            li
+              a(href="/dashboard") Dashboard
     
     #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
       .modal-dialog(role='document')

@@ -12,7 +12,7 @@ module.exports.showDetail = function(req, res) {
             if(err)
                 sendJsonResponse(res, 404, err);
             else
-                res.render("detail.pug", {trip: t});
+                res.render("detail.pug", {trip: t, user: req.session.user});
         })
     }
 };
@@ -55,7 +55,13 @@ var getAT = function(req, res) {
         res.redirect("/dashboard");
     });
 }
- 
+
+module.exports.setTrips = function (req, res) {
+    comp.find({}, function(err, c) {
+        req.session.compList = c;
+    });
+}
+
 module.exports.showAddTrip = function (req, res) {
     comp.find({}, function(err, c) {
         req.session.compList = c;
@@ -136,6 +142,7 @@ module.exports.delComp = function(req, res) {
             sendJsonResponse(res, 404, err);
         }
         else if(c) {
+            
             comp.find({}, function(err, c) {
                 req.session.compList = c;
                 req.session.act = "showCompanies";
@@ -152,7 +159,7 @@ module.exports.showCompDet = function(req, res) {
             sendJsonResponse(res, 404, err);
         }
         else
-            res.render("company", {comp: c});
+            res.render("company", {comp: c, user: req.session.user});
     });
 }
 
@@ -167,17 +174,22 @@ module.exports.addReview = function(req, res) {
                 sendJsonResponse(res, 404, err);
             }
             else {
-                comp.findById(req.body.id).exec(function(err, c) {
+                comp.findById(req.params.id).exec(function(err, c) {
                     if(err) sendJsonResponse(res, 404, err);
                     else if(c) {
-                        c.Reviews.push(r);
-                        sendJsonResponse(res, 200, {msg: "Successfully given the review!", ok: 1});
+                        comp.update(
+                            { _id: c._id }, 
+                            { $push: { Reviews: r } },
+                            function(err, cx) {
+                                sendJsonResponse(res, 200, {msg: "Successfully given the review!", ok: 1});
+                            }
+                        );
+                          
                     }
                     else if(!c) {
                         sendJsonResponse(res, 200, {msg: "Company not found!"});
                     }
                 })
-                sendJsonResponse(res, 404, err);
             }
         });
     }
@@ -186,5 +198,53 @@ module.exports.addReview = function(req, res) {
     }
 }
 
+module.exports.openFeedback = function(req, res) {
+    comp.findById(req.params.id).exec(function(err, c) {
+        if(err) sendJsonResponse(res, 404, err);
+        else if(c) {
+            res.render("feedback", {comp: c, user: req.session.user});
+        }
+    })
+}
+
+module.exports.book = function(req, res) {
+    if(req.session.user) {
+        trips.findById(req.params.id).exec(function(err, t){
+            if(err) sendJsonResponse(res, 404, err);
+            else if(t) {
+                if(t.Remaining <= 0) {
+                    sendJsonResponse(res, 200, {msg: "No more seats left, sorry!", ok: 0});
+                }
+                //var found = false;
+                
+                /*for(var i = 0; i < t.Users.length; i++) {
+                    if(t.Users[i].Username == req.session.Username) {
+                        found = true;
+                        break;
+                    }
+                }
+                if(found) {
+                    sendJsonResponse(res, 200, {msg: "You have already booked a seat!", ok: 0});
+                }*/
+                else {
+                    trips.findOneAndUpdate(
+                        { _id: t._id}, 
+                        { $push: { Users: req.session.user  }, Remaining: t.Remaining-1 },
+                       function (error, success) {
+                             if (error) {
+                                 console.log(error);
+                             } else {
+                                 sendJsonResponse(res, 200, {msg: "Successfully booked a seat!", ok:1});
+                             }
+                         });
+                    
+                }
+            }
+        })
+    }
+    else {
+        sendJsonResponse(res, 200, {msg: "You have to be logged in to do this!", ok: 0})
+    }
+}
 
 //module.exports.getTrips = gTrips(req, res);

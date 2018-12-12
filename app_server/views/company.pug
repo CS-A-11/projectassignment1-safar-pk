@@ -1,15 +1,40 @@
 extends layout
 
 block content
-            
-    if comp
-        h1= comp.CompanyName
-        .list-group
-            .list-group-item
-                p Office Location: #{comp.OfficeLoc}
-            .list-group-item
-                p Contact Number: #{comp.Phone}
-        h1 Reviews
-        .list-group
-            .list-group-item
-                p XD
+    .container(style="background-color: white; padding: 20px;")    
+        if comp
+            h1= comp.CompanyName
+            .list-group
+                .list-group-item
+                    p Office Location: #{comp.OfficeLoc}
+                .list-group-item
+                    p Contact Number: #{comp.Phone}
+                .list-group-item
+                    a.btn.btn-lg.btn-primary(href="/api/feedback/"+comp._id) Give Feedback
+            h1 Reviews
+            .list-group
+                each rev in comp.Reviews
+                    .list-group-item
+                        h3 Feedback by: #{rev.User.Name}
+                        if rev.Rating > 0
+                            .fa.fa-star.checked
+                        else
+                            .fa.fa-star
+                        if rev.Rating > 1
+                            .fa.fa-star.checked
+                        else
+                            .fa.fa-star
+                        if rev.Rating > 2
+                            .fa.fa-star.checked
+                        else
+                            .fa.fa-star
+                        if rev.Rating > 3
+                            .fa.fa-star.checked
+                        else
+                            .fa.fa-star
+                        if rev.Rating > 4
+                            .fa.fa-star.checked
+                        else
+                            .fa.fa-star
+                        if(rev.Comment)
+                            p Comment: #{rev.Comment}

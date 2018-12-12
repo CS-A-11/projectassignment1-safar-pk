@@ -18,9 +18,11 @@ block content
         p Date of Departure: #{trip.StartDate}
       .list-group-item
         p Date of Arrival: #{trip.EndDate}
-
+      .list-group-item
+        
     h2 Trip Organized by: #{trip.TripBy.CompanyName}
     .list-group
       .list-group-item
         p Office Location: #{trip.TripBy.OfficeLoc}
-        a(href="/api/company/"+trip.TripBy._id) details
+        a.btn.btn-lg.btn-primary(href="/api/company/"+trip.TripBy._id) details
+        a.btn.btn-lg.btn-primary(onclick='bookseat(' + '"' + trip._id + '"' + ')') Book Seat

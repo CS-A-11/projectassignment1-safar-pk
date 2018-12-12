@@ -37,6 +37,7 @@ var tripSchema = new mongoose.Schema({
     Remaining: Number,
     StartDate: Date,
     EndDate: Date,
-    TripBy: companySchema
+    TripBy: companySchema,
+    Users: [userSchema]
 });
 mongoose.model('trips', tripSchema);

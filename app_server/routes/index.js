@@ -12,4 +12,5 @@ router.get("/travel/", ctrlMain.travel);
 router.get("/affiliations/", ctrlMain.affiliations)
 router.get("/dashboard", ctrlMain.dashboard);
 
+
 module.exports = router;

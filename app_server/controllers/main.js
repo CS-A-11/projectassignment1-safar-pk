@@ -4,6 +4,7 @@ var path = require("path");
 var uweb = "https://safarpk.herokuapp.com/";
 
 module.exports.index = function(req, res) {
+  
   if(!req.session.user) {
     var requestOptions, path;
     requestOptions = {
@@ -20,16 +21,9 @@ module.exports.index = function(req, res) {
     });
   }
   else {
-    if(req.session.user.Type == "Admin") {
-      openDash(req, res);
-      /*res.render("dashboard", {
-        user: req.session.user, usersList: req.session.usersList, tripsList: req.session.tripsList, status: "Logged"});*/
-    }
-    else {
       res.render("index", { 
         user: req.session.user, status: "Logged"
       });
-    }
   }
 };
 module.exports.about = function(req, res) {
@@ -46,9 +40,14 @@ var openDash = function(req, res) {
     res.redirect("/");
   }
   else {
-    res.render("dashboard", {user: req.session.user, usersList: req.session.usersList, 
-      act: req.session.act, editing: req.session.editing, msg: req.session.msg, status: "Logged",
-    tripsList: req.session.tripsList, compList: req.session.compList});
+    if(req.session.user.Type == "Admin") {
+      res.render("dashboard", {user: req.session.user, usersList: req.session.usersList, 
+        act: req.session.act, editing: req.session.editing, msg: req.session.msg, status: "Logged",
+      tripsList: req.session.tripsList, compList: req.session.compList});
+    }
+    else {
+      res.redirect("/");
+    }
   }
 }
 

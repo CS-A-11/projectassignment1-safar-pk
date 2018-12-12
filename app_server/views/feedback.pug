@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    .container(style="background-color: white; padding: 20px;") 
+        h1 Feedback for #{comp.CompanyName}
+        select(id="stars" class="txtfld3")
+            option 5
+            option 4
+            option 3
+            option 2
+            option 1
+        input(class="txtfld3" type="text" id="comment" placeholder="Comment..")
+        a.btn.btn-lg.btn-primary(class="txtfld2" style="background-color: #FF6347" onclick='addrev(' + '"' + comp._id + '"' + ')') Submit

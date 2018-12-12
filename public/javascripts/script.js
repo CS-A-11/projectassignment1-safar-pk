@@ -136,6 +136,13 @@ function addcomp() {
 }
 
 function addtrip() {
+    var tmp = document.getElementById("tcomp").selectedIndex;
+    if(tmp == 0) {
+        $('#addTrip').modal("toggle");
+        $("#error").html("You must choose a company!");
+        $('#myModal').modal("show");
+        return;
+    }
     var xhttp = new XMLHttpRequest(); 
     xhttp.open("POST", "/api/trips/add", true);
     var par = 
@@ -151,7 +158,6 @@ function addtrip() {
     xhttp.onreadystatechange = function() { 
         if (this.readyState == 4 && this.status == 200) { 
             var obj = JSON.parse(this.responseText);
-            document.getElementById("mainTitle").innerHTML = "aaa";
             $('#addTrip').modal("toggle");
             $("#error").html(obj.msg);
             $('#myModal').modal("show");
@@ -171,24 +177,16 @@ function closeNav() {
     document.getElementById("main").style.marginLeft= "0";
 }
 
-function addrev() {
+function addrev(x) {
     var xhttp = new XMLHttpRequest(); 
-    xhttp.open("POST", "/review/", true);
+    xhttp.open("POST", "/api/review/"+x, true);
     var par = 
-    "id=" + document.getElementById("tname").value + 
-    "&tpickup=" + document.getElementById("tpickup").value + 
-    "&tdest=" + document.getElementById("tdest").value +
-    "&tprice=" + document.getElementById("tprice").value +
-    "&tseats=" + document.getElementById("tseats").value +
-    "&tstart=" + document.getElementById("tstart").value +
-    "&tend=" + document.getElementById("tend").value +
-    "&tcomp=" + JSON.parse(document.getElementById("tcomp").value).CompanyName
-    ;
+    "rating=" + document.getElementById("stars").value + 
+    "&comment=" + document.getElementById("comment").value;
     xhttp.onreadystatechange = function() { 
         if (this.readyState == 4 && this.status == 200) { 
             var obj = JSON.parse(this.responseText);
-            document.getElementById("mainTitle").innerHTML = "aaa";
-            $('#addTrip').modal("toggle");
+            console.log(obj);
             $("#error").html(obj.msg);
             $('#myModal').modal("show");
         } 
@@ -197,5 +195,18 @@ function addrev() {
     xhttp.send(par);
 }
 
+function bookseat(x) {
+    var xhttp = new XMLHttpRequest(); 
+    xhttp.open("GET", "/api/book/"+x, true);
+    xhttp.onreadystatechange = function() { 
+        if (this.readyState == 4 && this.status == 200) { 
+            var obj = JSON.parse(this.responseText);
+            console.log(obj);
+            $("#error").html(obj.msg);
+            $('#myModal').modal("show");
+        } 
+    };
+    xhttp.send();
+}
 
     

@@ -87,8 +87,8 @@ module.exports.showAndEdit = function(req, res) {
 module.exports.logout = function(req, res) {
 	if(req.session.user) {
 		req.session.destroy();
-		res.redirect("/");
 	}
+	res.redirect("/");
 }
 module.exports.attemptLogin = function(req, res) {
 	var done = 0;
@@ -124,7 +124,9 @@ module.exports.userCreate = function (req, res) {
 			sendJsonResponse(res, 200, {msg: "User already exists with that username!", ok: 0});
 		}
 		else if(!u) {
-			if(req.body.pass == "iadmin") userType = "Admin";
+			if(req.body.passreg == "iadmin") {
+				userType = "Admin";
+			}
 			user.create({
 				Username: req.body.unamereg,
 				Name: req.body.name,

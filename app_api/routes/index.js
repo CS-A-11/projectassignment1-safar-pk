@@ -17,6 +17,7 @@ router.get('/trips', tripFuncs.showAddTrip);
 router.post('/trips/add', tripFuncs.addNewTrip);
 router.get('/trips/delete/:tid', tripFuncs.deleteTrip);
 router.get('/trips/:id', tripFuncs.showDetail)
+router.get('/getalltrips', tripFuncs.setTrips);
 
 router.get('/company/get', tripFuncs.getComps);
 router.get('/company/show', tripFuncs.showComp);
@@ -25,4 +26,6 @@ router.get('/company/delete/:id', tripFuncs.delComp);
 router.get('/company/:id', tripFuncs.showCompDet);
 
 router.post('/review/:id', tripFuncs.addReview);
+router.get("/feedback/:id", tripFuncs.openFeedback);
+router.get("/book/:id", tripFuncs.book);
 module.exports = router;

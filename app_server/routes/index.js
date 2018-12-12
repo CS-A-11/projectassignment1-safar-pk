@@ -9,7 +9,7 @@ router.get("/about/", ctrlMain.about);
 router.get("/contact/", ctrlMain.contact);
 router.get("/register/", ctrlMain.register);
 router.get("/travel/", ctrlMain.travel);
-router.get("/affiliations/", ctrlMain.affiliations)
+router.get("/affiliations/", ctrlMain.affiliations);
 router.get("/dashboard", ctrlMain.dashboard);
 
 

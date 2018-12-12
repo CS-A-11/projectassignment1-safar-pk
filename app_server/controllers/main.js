@@ -2,7 +2,7 @@
 var request = require("request");
 var path = require("path");
 var uweb = "https://safarpk.herokuapp.com/";
-
+//var uweb = "http://localhost:5000/"
 module.exports.index = function(req, res) {
   
   if(!req.session.user) {
@@ -44,8 +44,10 @@ var openDash = function(req, res) {
       res.render("dashboard", {user: req.session.user, usersList: req.session.usersList, 
         act: req.session.act, editing: req.session.editing, msg: req.session.msg, status: "Logged",
       tripsList: req.session.tripsList, compList: req.session.compList});
+      
     }
     else {
+      
       res.redirect("/");
     }
   }

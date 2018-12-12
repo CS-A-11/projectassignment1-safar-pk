@@ -5,8 +5,7 @@ block content
     a.closebtn(href='javascript:void(0)', onclick='closeNav()') ×
     a(href='/api/users') Users
     a(href='/api/trips/getall') Trips
-    a(href='' data-toggle='modal', data-target='#addTrip') Add Trip
-    a(href='/api/company/show') Show Companies
+    a(href='/api/company/show') Company and Trip
     a(href='' data-toggle='modal', data-target='#addComp') Add Company
   #main
     span(style='font-size:30px;cursor:pointer; color: white;', onclick='openNav()') ☰ open
@@ -28,6 +27,9 @@ block content
                 a(id="edL" href="/api/trips/delete/"+trip._id) delete
                 br
       else if act == "showCompanies"
+        .row
+          .col-sm-12
+            a.btn.btn-lg.btn-primary(href='' data-toggle='modal', data-target='#addTrip') Add Trip
         if compList
           .col-sm-12.list-group
             each c in compList
